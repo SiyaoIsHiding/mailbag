@@ -27,6 +27,8 @@ app.get("/mailboxes",
             const mailboxes: IMAP.IMailbox[] = await imapWorker.listMailboxes()
             inResponse.json(mailboxes);
         }catch (inError){
+
+
             inResponse.send("error in list mailboxes")
         }
     }
@@ -123,3 +125,5 @@ app.delete("/contacts/:id",
     }
     }
 )
+
+app.listen(80, ()=> console.log("Listening at 80"))

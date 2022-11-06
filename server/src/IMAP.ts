@@ -26,24 +26,26 @@ export class Worker {
     constructor(inServerInfo: IServerInfo) {
         this.serverInfo = inServerInfo
     }
+
     private async connectToServer(): Promise<any> {
-        const client: any = new ImapClient.default(
+        const client: typeof ImapClient = new ImapClient.default(
             this.serverInfo.imap.host,
             this.serverInfo.imap.port,
             {auth: this.serverInfo.imap.auth});
-        client.logLevel = client.LOG_LEVEL_NONE;
         client.onerror = (inError: Error)=>{
             console.log(
                 "IMAP.Worker.listMailboxes(): Connection error",
                 inError
             );
         };
+
         await client.connect();
         return client;
     }
 
     public async listMailboxes(): Promise<IMailbox[]> {
-        const client: any = await this.connectToServer();
+        console.log("will list mailboxes")
+        const client: typeof ImapClient = await this.connectToServer();
         const mailboxes: any = await client.listMailboxes();
         await client.close();
         const finalMailboxes: IMailbox[] = []; // constant array can be pushed too

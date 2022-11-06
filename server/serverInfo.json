@@ -8,11 +8,11 @@
     }
   },
   "imap": {
-    "host": "mail.mydomain.com",
-    "port": 999,
+    "host": "imap.gmx.com",
+    "port": 993,
     "auth": {
-      "user": "user@domain.com",
-      "pass": "xxx"
+      "user": "cyborgbutok@gmx.com",
+      "pass": "IT5GY4EOVUTVY4PX7BOH"
     }
   }
 }
