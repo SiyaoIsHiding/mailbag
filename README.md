@@ -29,7 +29,15 @@ This one is to test getting a message.
 ```shell
 curl --location --request GET 'http://127.0.0.1/messages/INBOX/1'
 ```
+
+In addition, I checked my emails directly on Gmail and GMX to confirm the outcome.
+
 # How REST helps
+REST API provides scalability and flexibility.
+1. First, REST is stateless. That means I don't need to record the previous requests in the server. Each request is independent.
+2. JSON format is easier to use and smaller in size.
+In this way, REST makes the communication between client-side and server-side easy and increase the robustness in the server.
+
 # Additional Features
 ## Move Message
 I added the feature of move a message from a mailbox to another. A sample of usage is
