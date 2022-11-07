@@ -44,7 +44,6 @@ export class Worker {
     }
 
     public async listMailboxes(): Promise<IMailbox[]> {
-        console.log("will list mailboxes")
         const client: typeof ImapClient = await this.connectToServer();
         const mailboxes: any = await client.listMailboxes();
         await client.close();
@@ -62,7 +61,7 @@ export class Worker {
     }
 
     public async listMessages(inCallOptions: ICallOptions): Promise<IMessage[]> {
-        const client: any = await this.connectToServer();
+        const client: typeof ImapClient = await this.connectToServer();
         const mailbox: any = await client.selectMailbox(inCallOptions.mailbox);
         if (mailbox.exists === 0) {
             await client.close()
@@ -84,7 +83,7 @@ export class Worker {
     }
 
     public async getMessageBody(inCallOptions: ICallOptions): Promise<string> {
-        const client: any = await this.connectToServer();
+        const client: typeof ImapClient = await this.connectToServer();
         const messages: any[] = await client.listMessages(
             inCallOptions.mailbox, inCallOptions.id, ["body[]"], {byUid: true}
         )
@@ -98,8 +97,14 @@ export class Worker {
     }
 
     public async deleteMessage(inCallOptions: ICallOptions): Promise<any> {
-        const client: any = await this.connectToServer();
-        await client.deleteMessage(inCallOptions.mailbox, inCallOptions.id, {byUid: true})
+        const client: typeof ImapClient = await this.connectToServer();
+        await client.deleteMessages(inCallOptions.mailbox, inCallOptions.id, {byUid: true})
         await client.close();
+    }
+
+    public async moveMessage(inCallOptions: {id: number, path: string, dest: string}): Promise<void> {
+        const client: typeof ImapClient = await this.connectToServer();
+        await client.moveMessages(inCallOptions.path, `${inCallOptions.id}`, inCallOptions.dest, {byUid: true})
+        await client.close()
     }
 }

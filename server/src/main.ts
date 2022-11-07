@@ -15,7 +15,7 @@ app.use(express.json())
 app.use("/", express.static(path.join(__dirname, "../../client/dist")));
 app.use(function(inRequest: Request, inResponse: Response, inNext: NextFunction){
     inResponse.header("Access-Control-Allow-Origin","*");
-    inResponse.header("Access-Control-Allow-Methods", "GET,POST,DELETE,OPTIONS");
+    inResponse.header("Access-Control-Allow-Methods", "GET,POST,DELETE,PUT,OPTIONS");
     inResponse.header("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
     inNext();
 })
@@ -83,6 +83,22 @@ app.post("/messages",
         try {
             const smtpWorker: SMTP.Worker = new SMTP.Worker(serverInfo)
             await smtpWorker.sendMessage(inRequest.body)
+            inResponse.send("ok")
+        }catch(inError){
+            inResponse.send("error")
+        }
+    }
+)
+
+app.put("/messages/:mailbox/:id",
+    async (inRequest: Request, inResponse: Response) => {
+        try{
+            const imapWorker: IMAP.Worker = new IMAP.Worker(serverInfo)
+            await imapWorker.moveMessage({
+                path: inRequest.params.mailbox,
+                id: parseInt(inRequest.params.id, 10),
+                dest: inRequest.body.dest
+            })
             inResponse.send("ok")
         }catch(inError){
             inResponse.send("error")

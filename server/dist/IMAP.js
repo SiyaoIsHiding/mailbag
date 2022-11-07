@@ -29,7 +29,6 @@ class Worker {
     }
     listMailboxes() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log("will list mailboxes");
             const client = yield this.connectToServer();
             const mailboxes = yield client.listMailboxes();
             yield client.close();
@@ -84,7 +83,14 @@ class Worker {
     deleteMessage(inCallOptions) {
         return __awaiter(this, void 0, void 0, function* () {
             const client = yield this.connectToServer();
-            yield client.deleteMessage(inCallOptions.mailbox, inCallOptions.id, { byUid: true });
+            yield client.deleteMessages(inCallOptions.mailbox, inCallOptions.id, { byUid: true });
+            yield client.close();
+        });
+    }
+    moveMessage(inCallOptions) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const client = yield this.connectToServer();
+            yield client.moveMessages(inCallOptions.path, `${inCallOptions.id}`, inCallOptions.dest, { byUid: true });
             yield client.close();
         });
     }

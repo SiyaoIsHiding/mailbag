@@ -9,14 +9,14 @@ export class Worker {
     constructor(inServerInfo: IServerInfo) {
         this.serverInfo = inServerInfo
     }
-    public sendMessage(inOptions: SendMailOptions): Promise<string> {
+    public sendMessage(inOptions: SendMailOptions): Promise<void> {
         return new Promise((inResolve, inReject) =>{
             const transport: Mail = nodemailer.createTransport(this.serverInfo.smtp);
             transport.sendMail(inOptions, (inError: Error | null, inInfo: SentMessageInfo) => {
                 if (inError) {
                     inReject(inError);
                 }else{
-                    inResolve("mail sent"); // TODO: different from textbook
+                    inResolve(); // TODO: different from textbook
                 }
             })
         })

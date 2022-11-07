@@ -14,7 +14,7 @@ class Worker {
                     inReject(inError);
                 }
                 else {
-                    inResolve("mail sent"); // TODO: different from textbook
+                    inResolve(); // TODO: different from textbook
                 }
             });
         });
