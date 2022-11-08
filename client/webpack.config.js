@@ -1,57 +1,37 @@
-// Generated using webpack-cli https://github.com/webpack/webpack-cli
+const HtmlWebPackPlugin = require("html-webpack-plugin");
 
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+module.exports = {
 
-const isProduction = process.env.NODE_ENV == "production";
+    entry : "./src/code/main.tsx",
 
-const stylesHandler = "style-loader";
+    resolve : {
+        extensions : [ ".ts", ".tsx", ".js" ]
+    },
 
-const config = {
-  entry: "./src/main.tsx",
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html", filename: "./index.html"
-    }),
+    module : {
+        rules : [
+            {
+                test : /\.html$/,
+                use : { loader : "html-loader" }
+            },
+            {
+                test : /\.css$/,
+                use : [ "style-loader", "css-loader"]
+            },
+            {
+                test : /\.tsx?$/,
+                loader: 'awesome-typescript-loader'
+            }
+        ]
 
-    // Add your plugins here
-    // Learn more about plugins from https://webpack.js.org/configuration/plugins/
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.(tsx)$/i,
-        loader: "awesome-typescript-loader",
-      },
-      {
-        test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-      {
-        test: /\.(html)$/i,
-        use: {loader:"html-loader"}
-      },
+    },
 
-      // Add your rules for custom modules here
-      // Learn more about loaders from https://webpack.js.org/loaders/
+    plugins : [
+        new HtmlWebPackPlugin({ template : "./src/index.html", filename : "./index.html" })
     ],
-  },
-  resolve: {
-    extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
-  },
-  performance:{hints:false},
-  watch: true,
-  devtool: "source-map"
-};
 
-module.exports = () => {
-  if (isProduction) {
-    config.mode = "production";
+    performance : { hints : false },
+    watch : true,
+    devtool : "source-map"
 
-    config.plugins.push(new WorkboxWebpackPlugin.GenerateSW());
-  } else {
-    config.mode = "development";
-  }
-  return config;
 };
