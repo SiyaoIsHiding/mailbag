@@ -22,7 +22,6 @@ export function createState(inParentComponent:any) {
         contactEmail:null,
 
         addMailboxToList: function(inMailbox: IMAP.IMailbox): void{
-          console.log("state.addMailboxToList()", inMailbox)
           const  cl: IMAP.IMailbox[] = this.state.mailboxes.slice(0);
           cl.push(inMailbox);
           this.setState({mailboxes: cl});

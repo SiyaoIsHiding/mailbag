@@ -53,3 +53,4 @@ Some codes in the textbook do not compile by Typescript, probably because the re
 1. First, in `IMAP.ts`, the function `getMessageBody(inCallOptions: ICallOptions): Promise<string>`, the variable `parsed.text` is in type of `string | null`, inconsistent with the `string` type as stated in the `Promise`. I correct it to return `""` when `parsed.text` is `null`.
 2. In both `Contacts.ts` function `deleteContact(inID: string): Promise<string>` and `SMTP.ts` function `public sendMessage(inOptions: SendMailOptions): Promise<string>`, the textbook's codes use `inResolve()`, which is inconsistent with `Promise<string>`. I correct them to `Promise<void>`.
 
+## TODO: sort messages with date

@@ -7,6 +7,8 @@ class Worker {
         this.serverInfo = inServerInfo;
     }
     sendMessage(inOptions) {
+        console.log("messageBody in state.ts");
+        console.log(inOptions.text);
         return new Promise((inResolve, inReject) => {
             const transport = nodemailer.createTransport(this.serverInfo.smtp);
             transport.sendMail(inOptions, (inError, inInfo) => {
