@@ -1,0 +1,18 @@
+{
+  "smtp": {
+    "host": "your host",
+    "port": 25,
+    "auth": {
+      "user": "your email",
+      "pass": "your app pass"
+    }
+  },
+  "imap": {
+    "host": "your host",
+    "port": 993,
+    "auth": {
+      "user": "your email",
+      "pass": "your app pass"
+    }
+  }
+}
