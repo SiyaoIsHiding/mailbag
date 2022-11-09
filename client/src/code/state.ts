@@ -20,6 +20,7 @@ export function createState(inParentComponent:any) {
         contactID: null,
         contactName: null,
         contactEmail:null,
+        moveMailboxDest:null,
 
         addMailboxToList: function(inMailbox: IMAP.IMailbox): void{
           const  cl: IMAP.IMailbox[] = this.state.mailboxes.slice(0);
@@ -105,6 +106,10 @@ export function createState(inParentComponent:any) {
             this.setState({[inEvent.target.id]:inEvent.target.value})
         }.bind(inParentComponent),
 
+        selectChangeHandler: function(inEvent: any): void{
+            this.setState({moveMailboxDest :inEvent.target.value })
+        }.bind(inParentComponent),
+
         saveContact: async function(): Promise<void> {
             const cl = this.state.contacts.slice(0)
             this.state.showHidePleaseWait(true)
@@ -161,6 +166,14 @@ export function createState(inParentComponent:any) {
             this.setState({
                 messages:cl, currentView:"welcome"
             })
+        }.bind(inParentComponent),
+
+        moveToMailbox: async function(): Promise<void> {
+            this.state.showHidePleaseWait(true)
+            const imapWorker = new IMAP.Worker()
+            await imapWorker.moveToMailbox(this.state.messageID, this.state.currentMailbox, this.state.moveMailboxDest)
+            this.state.showHidePleaseWait(false)
+            this.setState({moveMailboxDest: null})
         }.bind(inParentComponent)
 
 

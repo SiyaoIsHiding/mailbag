@@ -1,7 +1,9 @@
 import React from "react"
-import {Button, InputBase, TextField} from "@material-ui/core";
+import {Button, FormControl, InputBase, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
+
 
 const MessageView = ({state}) => (
+
     <form>
 
         { /* ----- ID, date, from, to ----- */ }
@@ -72,7 +74,25 @@ const MessageView = ({state}) => (
         {
             state.currentView==="message" &&
             <Button variant={"contained"} color={"primary"} size={"small"}
-                    style={{marginTop:10}} onClick={ state.deleteMessage }>Delete</Button>
+                    style={{marginTop:10, marginRight:10}} onClick={ state.deleteMessage }>Delete</Button>
+        }
+        {
+            state.currentView==="message" &&
+            <Button variant={"contained"} color={"primary"} size={"small"}
+                    style={{marginTop:10, marginRight:10}} onClick={state.moveToMailbox}>Move To</Button>
+        }
+        {
+            state.currentView==="message" &&
+            <FormControl variant={"standard"} style={{minWidth: 400 }} size="small">
+                <InputLabel id="moveToMailbox">Another Mailbox</InputLabel>
+                <Select labelId={"moveToMailbox"} id={"moveToMailbox"} value={state.moveMailboxDest}
+                        label="Another Mailbox" onChange={state.selectChangeHandler}>
+                    {state.mailboxes.filter(inElement=> inElement.name!=state.currentMailbox).map((mailbox) => (
+                        <MenuItem key={mailbox.name} value={mailbox.name}>{mailbox.name}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+
         }
 
     </form>

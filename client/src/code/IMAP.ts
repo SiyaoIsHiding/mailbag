@@ -26,4 +26,8 @@ export class Worker{
     public async deleteMessage(inID: string, inMailbox: string): Promise<void> {
         await axios.delete(`${config.serverAddress}/messages/${inMailbox}/${inID}`)
     }
+
+    public async moveToMailbox(inID: string, inMailbox: string, inDest: string): Promise<void> {
+        await axios.put(`${config.serverAddress}/messages/${inMailbox}/${inID}`, {"dest":inDest})
+    }
 }
