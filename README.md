@@ -1,10 +1,11 @@
 # Environment
 
-| Item                  | Description           |
-|-----------------------|-----------------------|
-| Node.js Version       | 14.17.0               |
-| Browser               | Chrome 106.0.5249.119 |
-| Operating System      | macOS 12.3.1          |
+| Item             | Description           |
+|------------------|-----------------------|
+| Node.js Version  | 14.17.0               |
+| Browser          | Chrome 106.0.5249.119 |
+| Operating System | macOS 12.3.1          |
+| IMAP Server      | GMX                   |
 
 
 | Computer Architecture | Description                  |
@@ -14,13 +15,15 @@
 | GPU                   | Intel Iris Plus Graphics 640 |
 
 # How to Test
-Run the server. Use Postman to test my codes. I test each function of my codes. Two examples of requests are listed here.
-This one is to test deleting the contact of jane.
+1. Input the server information, including email address and application passwords, in `server/serverInfo.json` and `client/src/code/config.ts`.
+2. In `client/package.json`, run `build`
+3. In `server/package.json`, run `compile`
+4. In browser, access `http://localhost:80`
 
-In addition, I checked my emails directly on Gmail and GMX to confirm the outcome.
+I tested each function following the functions in `client/src/code/state.ts`. Apart from checking the server log and the client side web page, I checked my Gmail and GMX to confirm the outcomes.
 
 # How AJAX helps
-
+AJAX allows the website to update only a part of the page, not the entire one, and as a result, to transmit data in pieces, not loading entire pages from the server. Therefore, AJAX reduces the load on the server and improves the processing speed.
 
 # Additional Features
 ## Move Message
