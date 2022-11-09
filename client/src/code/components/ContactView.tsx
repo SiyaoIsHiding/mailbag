@@ -17,7 +17,7 @@ const ContactView = ({state}) => (
         {
             state.currentView === "contact" &&
             <Button variant={"contained"} color={"primary"} size={"small"} style={{marginTop:10}}
-                    onClick= {()=> state.deleteContact} >Delete</Button>
+                    onClick= {state.deleteContact} >Delete</Button>
         }
         {
             state.currentView === "contact" &&
